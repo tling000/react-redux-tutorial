@@ -1,10 +1,11 @@
 const initCount = 0
 const initMessage = '路地裏の猫'
-let newCount = 0
+const initNyan = 'にゃん'
 
 const initialState = {
     count: initCount,
     message: initMessage,
+    nyan: initNyan
 }
 
 const updateMessage = (newCount) => {
@@ -21,34 +22,49 @@ const updateMessage = (newCount) => {
     return newMessage
 }
 
+const updateNyan = (newCount) => {
+    let newNyan = initNyan
+    if (newCount < 0) {
+        newNyan = '(ΦωΦ)'
+      } else {
+        newNyan = 'にゃ'+ 'ー'.repeat(newCount) + 'ん'
+      }
+    return newNyan
+}
+
 const counter = (state = initialState, action: any) => {
+    let newCount = 0
     switch (action.type) {
         case 'INCREMENT':
             newCount = state.count + 1
             return {
                 ...state,
                 count: newCount,
-                message: updateMessage(newCount)
+                message: updateMessage(newCount),
+                nyan: updateNyan(newCount)
             }
         case 'DECREMENT':
             newCount = state.count - 1
             return {
                 ...state,
                 count: newCount,
-                message: updateMessage(newCount)
+                message: updateMessage(newCount),
+                nyan: updateNyan(newCount)
             }
         case 'DOUBLE':
             newCount = state.count * 2
             return {
                 ...state,
                 count: newCount,
-                message: updateMessage(newCount)
+                message: updateMessage(newCount),
+                nyan: updateNyan(newCount)
             }
         case 'RESET':
             return {
                 ...state,
                 count: initCount,
-                message: initMessage
+                message: initMessage,
+                nyan: initNyan
             }
     }
 
